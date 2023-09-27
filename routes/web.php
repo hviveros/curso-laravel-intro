@@ -4,6 +4,7 @@
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,31 +24,32 @@ use Illuminate\Support\Facades\Route;
  * Route::put      | Actualiza
  */
 
-Route::get('/', function () {
-    // return view('welcome');
-    // return "Ruta home";
-    // Usamos la función llamada view()
-    return view('home');
-    // Al final, nombramos cada ruta con name()
-})->name('home');
+// Las peticiones ahora se realizan a través del controlador PageController
+ // Ya no se trabaja con funciones anónimas
+// Route::get('/', [PageController::class, 'home'])->name('home');
 
-// Listado de publicaciones
-Route::get('blog', function () {
-    // Consulta a la base de datos
-    $posts = [
-        ['id' => 1, 'title' => 'PHP',       'slug' => 'php'],
-        ['id' => 2, 'title' => 'Laravel',   'slug' => 'laravel']
-    ];
-    return view('blog', ['posts' => $posts]);
-})->name('blog');
 
-// Vista de una publicación en específico
-Route::get('blog/{slug}', function ($slug) {
-    $post = $slug;
-    return view('post', ['post' => $post]);
-})->name('post');
+// Route::get('blog', [PageController::class, 'blog'])->name('blog');
 
-Route::get('buscar', function (Request $request) {
-    // accedemos al objeto $request y su método all() para que muestre todos los resultados
-    return $request->all();
+// Route::get('blog/{slug}', [PageController::class, 'post'])->name('post');
+
+// Route::get('buscar', function (Request $request) {
+//     // accedemos al objeto $request y su método all() para que muestre todos los resultados
+//     return $request->all();
+// });
+
+
+// Se crea un grupo, se desarrolla soluciones en un único archivo
+
+// 1. La ruta invoca a un controlador
+// 2. El controlador se encarga de las peticiones y solicitudes
+// 3. Se muestra en una vista
+Route::controller(PageController::class)->group(function () {
+
+    Route::get('/', 'home')->name('home');
+
+    Route::get('blog', 'blog')->name('blog');
+
+    Route::get('blog/{slug}', 'post')->name('post');
+
 });
