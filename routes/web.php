@@ -50,6 +50,7 @@ Route::controller(PageController::class)->group(function () {
 
     Route::get('blog', 'blog')->name('blog');
 
-    Route::get('blog/{slug}', 'post')->name('post');
+    // Sintaxis Eloquent
+    Route::get('blog/{post:slug}', 'post')->name('post');
 
 });

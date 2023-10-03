@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-// Para poder generar datos en formato url amigable
+// Para poder generar datos en formato url amigable, importamos una clase Str
 use Illuminate\Support\Str;
 
 /**

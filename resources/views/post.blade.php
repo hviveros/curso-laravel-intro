@@ -6,9 +6,10 @@
 
 @section('content')
 
-    <h1>Post</h1>
-    <h2>Detalle del post</h2>
-
-    {{ $post }}
+    <!-- objeto->propiedad -->
+    <h1>{{ $post->title }}</h1>
+    <p>
+        {{ $post->body }}
+    </p>
 
 @endsection

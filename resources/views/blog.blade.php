@@ -11,10 +11,15 @@
     <!-- Sintaxis de Laravel -->
     @foreach ($posts as $post)
     <p>
-        <strong>{{ $post['id'] }}</strong> 
+        <!-- Ya no trabajamos como arrays, sino como objeto-propiedad -->
+        <!-- <strong>{{ $post['id'] }}</strong>  -->
+        <strong>{{ $post->id }}</strong> 
         <!-- Función de route, se agrega el parámetro adicional, en este caso el id -->
-        <a href=" {{ route('post', $post['slug']) }} ">{{ $post['title'] }}</a>
+        <!-- objeto->propiedad -->
+        <a href=" {{ route('post', $post->slug) }} ">{{ $post->title }}</a>
     </p>
     @endforeach
+
+    {{ $posts->links() }}
 
 @endsection
