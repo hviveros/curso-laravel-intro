@@ -17,6 +17,10 @@
         <!-- Función de route, se agrega el parámetro adicional, en este caso el id -->
         <!-- objeto->propiedad -->
         <a href=" {{ route('post', $post->slug) }} ">{{ $post->title }}</a>
+        <br>
+        <!-- Nombre de usuario que lo creó, se obtiene mediante la relación -->
+        <!-- tabla->tabla->campo_relacionado -->
+        <span>{{ $post->user->name }}</span>
     </p>
     @endforeach
 

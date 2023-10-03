@@ -24,6 +24,10 @@ class PostFactory extends Factory
             'title' => $title = $this->faker->sentence(),
             'slug'  => Str::slug($title),
             'body'  => $this->faker->text(2200),
+            // // Si sólo se tiene 1 usuario
+            // 'user_id' => 1,
+            // Si se tiene varios usuarios, el método randomElement asigna al azar varios
+            'user_id' => $this->faker->randomElement([1,2,3]),
         ];
     }
 }

@@ -19,6 +19,13 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('body');
 
+            // Nuevo campo, que tendrá relación con otra tabla
+            // unsigned -> sólo acepta números positivos
+            // en otra línea, indicamos que el campo es una clave foránea
+            // y a qué tabla hace referencia
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->timestamps();
         });
     }
