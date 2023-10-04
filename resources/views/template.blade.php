@@ -10,6 +10,13 @@
         <!-- Función de rutas y se coloca el name del archivo rutas web -->
         <a href="{{ route('home') }}">Home</a>
         <a href="{{ route('blog') }}">Blog</a>
+
+        <!-- Verifica si se ha iniciado sesión -->
+        @auth
+            <a href="{{ route('dashboard') }}">Dashboard</a>
+        @else
+            <a href="{{ route('login') }}">Login</a>
+        @endauth
     </p>
 
     <hr>
