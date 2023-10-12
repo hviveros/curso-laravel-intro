@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    // Especificar la relación Usuario/Post
+    // La relación existe en la BD, pero Laravel no sabe aún, se debe indicar
+    // En esta ocasión se coloca en PLURAL, porque un usuario puede tener muchas publicaciones
+    public function posts()
+    {
+        // A diferencia de belongsTo, se usa hasMany(tiene muchos)
+        return $this->hasMany(Post::class);
+    }
 }
