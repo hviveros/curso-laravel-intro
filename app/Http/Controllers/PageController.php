@@ -18,7 +18,8 @@ class PageController extends Controller
 
         // Mostrar registros en orden descendente, y que estén paginados(de 5 en 5)
         // Mejora, integración de búsqueda, en este caso, por el título
-        $posts = Post::where('title', 'LIKE', "%{$search}%")->latest()->paginate(5);
+        // Hacer una relación adicional con with()
+        $posts = Post::where('title', 'LIKE', "%{$search}%")->with('user')->latest()->paginate(5);
 
         // return view('welcome');
         // return "Ruta home";

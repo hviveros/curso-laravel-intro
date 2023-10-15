@@ -42,9 +42,12 @@ Route::controller(PageController::class)->group(function () {
 //     return view('welcome');
 // });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Retiramos de aquí la seguridad ->middleware(['auth', 'verified'])
+Route::redirect('dashboard', 'posts')->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -52,6 +55,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('posts', PostController::class)->except(['show']);
+Route::resource('posts', PostController::class)->middleware(['auth', 'verified'])->except(['show']);
 
 require __DIR__.'/auth.php';
