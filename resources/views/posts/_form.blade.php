@@ -2,10 +2,18 @@
 @csrf
 
 <label class="uppercase text-gray-700 text-sx">Título</label>
-<input type="text" name="title" class="rounded border-gray-200 w-full mb-4" value="{{ $post->title }}">
+
+<!-- mensaje de error -->
+<span class="text-xs text-red-600"> @error('title') {{ $message }} @enderror </span>
+
+<input type="text" name="title" class="rounded border-gray-200 w-full mb-4" value="{{ old('title', $post->title) }}">
 
 <label class="uppercase text-gray-700 text-sx">Contenido</label>
-<textarea name="body" id="" rows="10" class="rounded border-gray-200 w-full mb-4">{{ $post->body }}</textarea>
+
+<!-- mensaje de error -->
+<span class="text-xs text-red-600"> @error('body') {{ $message }} @enderror </span>
+
+<textarea name="body" id="" rows="10" class="rounded border-gray-200 w-full mb-4">{{ old('body', $post->body) }}</textarea>
 
 <div class="flex justify-between items-center">
     <a href="{{ route('posts.index') }}" class="text-indigo-600">Volver</a>

@@ -31,6 +31,21 @@ class PostController extends Controller
     // Para recuperar todo lo que envía un usuario, se usa la clase Request
     public function store (Request $request)
     {
+        // Validaciones
+        // Ambos campos deben ser obligatorios
+        // Regla unique: indicamos que de la tabla Posts, el campo title debe ser único
+        // Regla max: indicamos que este campo no puede sobrepasar 255 carateres,
+        // Ver todas las validaciones en la documentación
+        $request->validate([
+            'title' => 'required|unique:posts,title|max:255',
+            'body'  => 'required',
+        ], [
+            'title.required'    => 'Este campo es requerido',
+            'title.unique'      => 'Ya existe un post con este título, ingrese otro',
+            'title.max'         => 'Este campo no puede pasar de 255 carateres',
+            'body.required'     => 'Este campo es requerido',
+        ]);
+
         // La información del usuario logueado se encuentra en la clase $request
         // posts() -> hace referencia la relación usuario/post, se debe crear
         // create() -> se envía en un array toda la información requerida
@@ -49,6 +64,36 @@ class PostController extends Controller
     {
         // Carpeta posts , archivo edit.blade.php , parámetro $post
         return view('posts.edit', ['post' => $post]);
+    }
+
+    // Para actualizar, agregar otro parámetro, que son los registros que quiero actualizar
+    public function update (Request $request, Post $post)
+    {
+
+        // Validaciones
+        // Ambos campos deben ser obligatorios
+        // Regla unique: indicamos que de la tabla Posts, el campo title debe ser único
+        // Regla max: indicamos que este campo no puede sobrepasar 255 carateres,
+        // Ver todas las validaciones en la documentación
+        $request->validate([
+            'title' => 'required|unique:posts,title|max:255',
+            'body'  => 'required',
+        ], [
+            'title.required'    => 'Este campo es requerido',
+            'title.unique'      => 'Ya existe un post con este título, ingrese otro',
+            'title.max'         => 'Este campo no puede pasar de 255 carateres',
+            'body.required'     => 'Este campo es requerido',
+        ]);
+
+        // Para actualizar, sólo se necesita los datos a actualizar
+        $post->update([
+            'title' => $title = $request->title,
+            'slug' => Str::slug($title),
+            'body' => $request->body
+        ]);
+
+        // Luego. Redirigir al listado de publicaciones
+        return redirect()->route('posts.index');
     }
 
     public function destroy (Post $post)
